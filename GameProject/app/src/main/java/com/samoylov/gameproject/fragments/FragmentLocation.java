@@ -46,9 +46,7 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
 
 
 
-//    public interface onFragmentSelected {
-//        public void onSelected(String tag,int i);
-//    }
+// Нужен поток для переодического запроса////////////
 
     private Test2 listener;
 
@@ -81,9 +79,12 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
 
         lName = (TextView) v.findViewById(R.id.lName);
         lDescription = (TextView) v.findViewById(R.id.lDescription);
+
         location = Data.bdLocations.get(Data.bdHeros.get(0).getLocationId());
+        //запрос данных локации на которой нахдиться герой(id/название)////////////////////////////////////////////////////////////////////
+        // обработка полученной лкации////////////
         setOnClick();
-        startLoc();
+        startLoc();//отоброжение локации
 
         return v;
     }
@@ -102,6 +103,10 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
     public void onCardClick(View view, String name, int pos, String tag) {
         switch (name) {
             case "Замкадье":
+                //запрос данных локации на которой нахдиться герой(id/название)/////////////////////////////////
+                // обработка полученной лкации//////////////////////////////////////////////////////////////////
+
+
                 location = Data.bdLocations.get(1);
                 Data.bdHeros.get(0).setLocation(location.getLocName());
                 location.addPlayersOnLocationList(location.getLocName());
@@ -154,14 +159,9 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
 
 
     public void startLoc() {
-//        location = Data.bdLocations.get(Data.bdHeros.get(0).getLocationId());
-//        if (Data.bdHeros.get(0).getLocation() == "Москва") {
-
-//        }
-
         location.addPlayersOnLocationList(location.getLocName());
         location.addMobList(location.getLocName());
-        location.addOnLocation();
+        location.addOnLocation();// создание локация
         lName.setText(location.getLocName());
         lDescription.setText(location.getLocDescription());
         //Создаем адаптер и передаем context и список с данными

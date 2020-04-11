@@ -47,7 +47,6 @@ public class MyBagFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_my_bag, container, false);
         recyclerView = v.findViewById(R.id.bagList);
-//        equipment = new ArrayList<>();
         buildBag();
         addArmour = v.findViewById(R.id.addArmour);
         addArmour.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +88,11 @@ public class MyBagFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity());
         if (tag == "") {
+            //запрос на весь инвентарь //////////////////////////////////////////////////////////////////
             bagAdapter = new BagAdapter(BAG, tag);
         }
         if (tag == "Weapon") {
+            // запрос на оружие////////////////////////////////////////////////////////////////////////////////////
             posSos.clear();
             test1 = new ArrayList<>();
             for (int i = 0; i < BAG.size(); i++) {
@@ -103,6 +104,7 @@ public class MyBagFragment extends Fragment {
             bagAdapter = new BagAdapter(test1, tag);
         }
         if (tag == "Armour") {
+            //запрос к серверу на щит/////////////////////////////////////////////////////////////////////////////////////
             posSos.clear();
             test1 = new ArrayList<>();
             for (int i = 0; i < BAG.size(); i++) {
@@ -119,10 +121,8 @@ public class MyBagFragment extends Fragment {
             @Override
             public void onItemClik(int pos) {
                 if (!tag.equals("")) {
-//                    Data.bdHeros.get(0).getOnEquip().add(0, test1.get(pos));
                     hero.onEquip(test1.get(pos));
                     removeItem2(pos);
-//                    removeItem(posSos.get(pos));
                     getActivity().getSupportFragmentManager().popBackStack();
 
                 }

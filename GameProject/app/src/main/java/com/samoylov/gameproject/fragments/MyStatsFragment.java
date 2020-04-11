@@ -58,7 +58,7 @@ public class    MyStatsFragment extends Fragment implements MyProfileStatAdapter
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+// запрос к статам//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         hero = Data.bdHeros.get(0);
 
     }
@@ -89,7 +89,7 @@ public class    MyStatsFragment extends Fragment implements MyProfileStatAdapter
 
 
     private void onBuildStat(View v) {
-        weapon = v.findViewById(R.id.onWeapon);
+        weapon = v.findViewById(R.id.onWeapon);//если одет то ссылка на картинку
         armour = v.findViewById(R.id.onSheld);
         getName = (TextView) v.findViewById(R.id.get_My_Name);
         getLvl = (TextView) v.findViewById(R.id.get_My_Lvl);
@@ -138,6 +138,7 @@ public class    MyStatsFragment extends Fragment implements MyProfileStatAdapter
                         i = 1;
                         g = hero.getOnEquip().size();
                     }
+                    //запрос на снятие шмотки(получение данных о персонаже)/////////////////////////////////////////////////////////////////////////////////////
                     weapon.setImageResource(R.drawable.ic_colorize_gray);
                     myProfileStatAdapter.notifyDataSetChanged();
                 }
@@ -160,6 +161,7 @@ public class    MyStatsFragment extends Fragment implements MyProfileStatAdapter
                         i = 1;
                         g = hero.getOnEquip().size();
                     }
+                    //запрос на снятие шмотки(получение данных о персонаже)/////////////////////////////////////////////////////////////////////////////////////
                     armour.setImageResource(R.drawable.ic_security_gray);
                     myProfileStatAdapter.notifyDataSetChanged();
                 }

@@ -6,29 +6,29 @@ public class Hero extends Kostyl {
     HeroStat heroStat;
    private String name;
 
-    double Lvl = 1;
-    double point = 10;
-    double EXP = 0;
+    private double Lvl = 1;
+    private double point = 10;
+    private double EXP = 0;
 
-    double Str = 1;
+    private double Str = 1;
     private double hp = 20;
-    double Dmg = 5;
-    double Hr = 0.4;
+    private double Dmg = 5;
+    private double Hr = 0.4;
 
-    double Agi = 1;
-    double Ddg = 1;
-    double Acc = 0.6;
-    double CritPower = 1.1;
+    private double Agi = 1;
+    private double Ddg = 1;
+    private double Acc = 0.6;
+    private double CritPower = 1.1;
 
-    double Int = 1;
-    double SkillsPower = 1;
-    double Mp = 10;
-    double Mr = 0.2;
+    private double Int = 1;
+    private double SkillsPower = 1;
+    private double Mp = 10;
+    private double Mr = 0.2;
 
-    double Luc = 1;
-    double CritChance = 10;
-    double DropChance;
-    double SkillChance = 60;
+    private double Luc = 1;
+    private double CritChance = 10;
+    private double DropChance;
+    private double SkillChance = 60;
 
     public Hero(String name,double hp) {
         super(name,hp);

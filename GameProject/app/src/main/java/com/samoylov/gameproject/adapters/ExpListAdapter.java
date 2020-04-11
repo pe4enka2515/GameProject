@@ -124,7 +124,7 @@ public class ExpListAdapter extends BaseExpandableListAdapter {
                 if (groupPosition==2){
 //                    mListener.onCardClick(view,mGroups.get(groupPosition).get(childPosition),groupPosition,"Mob");
                     Toast.makeText(mContext, mGroups.get(4).get(childPosition), Toast.LENGTH_SHORT).show();
-                    mListener.onClickBattle(Integer.parseInt(mGroups.get(4).get(childPosition)));
+                    mListener.onClickBattle(Integer.parseInt(mGroups.get(4).get(childPosition))); //Напасть на монстра (Передача айди)
                 }else
                     Toast.makeText(mContext, "button is pressed", Toast.LENGTH_SHORT).show();
                 }

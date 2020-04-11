@@ -54,6 +54,11 @@ public class BattleFragment extends Fragment {
         attack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //атака/////////////////////////////////////////////////////////////////////////////////////////////
+                //получаю домаг игрока и монсра
+                //если домаг не -1 тогда бой продолжается инача
+                //конец боя//
+                //звапрос результат////////////////////////////////////////////////////////////////////////////////////
                 enemy.setHp(enemy.getHp() - hero.getDmg());
                 enemyBattleAdapter.notifyDataSetChanged();
                 if (enemy.getHp() <= 0) {

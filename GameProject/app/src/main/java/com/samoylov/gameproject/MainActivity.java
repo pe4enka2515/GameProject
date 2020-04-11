@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         Data.bdHeros.add(hero3);
         Data.bdHeros.add(hero4);
         Intent intent=new Intent(this,World.class);
+//
+//        Запрос данных героя (базвый класс)/////////////////////////////////////////////////////////////////////////////
+//
+//
+//
         startActivity(intent);
         finish();
     }

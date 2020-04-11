@@ -76,17 +76,10 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
         fragmentProfile = new FragmentProfile();
         myProfileFragment = new MyProfileFragment();
         battleFragment = new BattleFragment();
-        //fragmentMyProfile=new FragmentMyProfile();
-//        fragmentProfile.newInstance(0);
         fragmentManager = getSupportFragmentManager();
         fragmentLocation = FragmentLocation.newInstance(fragmentManager);
         fragmentManager.beginTransaction().replace(R.id.containerFragments, fragmentLocation).commit();
 
-//        listView = (ExpandableListView) findViewById(R.id.expanded_menu);
-//
-//        lName=(TextView) findViewById(R.id.lName);
-//        lDescription=(TextView) findViewById(R.id.lDescription);
-//        startLoc();
 
     }
 
@@ -156,6 +149,8 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
 
     @Override
     public void onBattle(int id) {
+        // Запрос с айди монстром////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // получил/обработал/записал//////////////////////////////////////////////////////////////////////////////////////////////////////////
         for (int i = 0; i < Data.bdMob.size(); i++) {
             if (Data.bdMob.get(i).getId() == id) {
                 battleFragment = new BattleFragment();
@@ -203,12 +198,6 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
                 }
                 b[0] = true;
                 setActionBarDrawerToggle();
-//                    setActionBarDrawerToggle();
-////                getSupportActionBar().setDisplayShowHomeEnabled(false);
-////                actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-////                drawerLayout.addDrawerListener(actionBarDrawerToggle);
-//                actionBarDrawerToggle.syncState();
-
             }
         });
     }
@@ -223,19 +212,5 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
         super.onBackPressed();
     }
 
-
-//    public void startLoc() {
-//        location = Data.bdLocations.get(0);
-//        Data.bdHeros.get(0).setLocation(location.getLocName());
-//        location.addPlayersOnLocationList(location.getLocName());
-//        location.addOnLocation();
-//        lName.setText(location.getLocName());
-//        lDescription.setText(location.getLocDescription());
-//        //Создаем адаптер и передаем context и список с данными
-//        adapter = new ExpListAdapter(getApplicationContext(), location.getOnLocation());
-//        adapter.setOnCardClickListener(this);
-//        listView.setAdapter(adapter);
-//
-//    }
 }
 

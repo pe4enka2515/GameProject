@@ -58,10 +58,11 @@ public class MyProfileStatAdapter extends RecyclerView.Adapter<MyProfileStatAdap
 
 
         final double[] d = {heroStats.get(position).getCount()};
-
+        //Отнимаем сатыты
         holder.mStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Запрсос с отправкой позицией ////////////////////////////////////////////////////////////////////////////////////////////
                 if (buffer.get(position).getCount() != heroStats.get(position).getCount()) {
                     d[0] = d[0] - 1;
                     buffer.get(position).setCount(d[0]);
@@ -74,9 +75,11 @@ public class MyProfileStatAdapter extends RecyclerView.Adapter<MyProfileStatAdap
                 }
             }
         });
+        //Прибовляем статы
         holder.pStat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Запрсос с отправкой позицией////////////////////////////////////////////////////////////////////////////////////////////////
                 if (pPoint != 0) {
                     d[0] = d[0] + 1;
 
