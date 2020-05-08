@@ -58,7 +58,7 @@ public class Hero extends Kostyl {
         this.heroStats = heroStats;
     }
 
-    void addStat(ArrayList<HeroStat> heroStats1) {
+    private void addStat(ArrayList<HeroStat> heroStats1) {
         heroStats1.add(new HeroStat("Сила", Str));
         heroStats1.add(new HeroStat("Ловкость", Agi));
         heroStats1.add(new HeroStat("Интелект", Int));

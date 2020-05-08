@@ -3,11 +3,20 @@
     <item android:title="Группа 1">
         <menu>
             <item
-                android:id="@+id/myPtofileItem"
+                android:id="@+id/myProfileItem"
                 android:title="Профиль" />
             <item
                 android:id="@+id/locationItem"
                 android:title="Локация" />
+
+        </menu>
+    </item>
+    <item android:title="Группа 2">
+        <menu>
+            <item
+                android:id="@+id/exit"
+                android:title="Выход" />
+
 
         </menu>
     </item>

@@ -67,7 +67,7 @@ public class MyProfileStatAdapter extends RecyclerView.Adapter<MyProfileStatAdap
                     d[0] = d[0] - 1;
                     buffer.get(position).setCount(d[0]);
                     holder.resultMyStat.setText(Double.toString(buffer.get(position).getCount()));
-                    mPoint--;
+//                    mPoint--;
                     pPoint++;
 //                    hero.setPoint(pPoint);
                     getPoint.setText(Double.toString(pPoint));
@@ -86,7 +86,7 @@ public class MyProfileStatAdapter extends RecyclerView.Adapter<MyProfileStatAdap
                     buffer.get(position).setCount(d[0]);
                     holder.resultMyStat.setText(Double.toString(buffer.get(position).getCount()));
                     pPoint--;
-                    mPoint++;
+//                    mPoint++;
 //                    hero.setPoint(pPoint);
                     getPoint.setText(Double.toString(pPoint));
                     mProfListener.onItemStatClick(view, buffer);

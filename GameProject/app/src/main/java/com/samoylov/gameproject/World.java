@@ -47,6 +47,7 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
     private FragmentMyProfile fragmentMyProfile;
     private MyProfileFragment myProfileFragment;
     private BattleFragment battleFragment;
+    private TextView name;
     FragmentManager fragmentManager;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -68,7 +69,9 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
-
+        View headerView=navigationView.getHeaderView(0);
+        name=(TextView) headerView.findViewById(R.id.textView);
+        name.setText(MainActivity.prefConfig.readName());
         setActionBarDrawerToggle();
 
 
@@ -87,7 +90,7 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         drawerLayout.closeDrawer(GravityCompat.START);
         b[0] = true;
-        if (menuItem.getItemId() == R.id.myPtofileItem) {
+        if (menuItem.getItemId() == R.id.myProfileItem) {
             if (!v[0]) {
                 drawerLayout.closeDrawer(GravityCompat.START);
             } else {
@@ -106,6 +109,13 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
             setActionBarDrawerToggle();
 //            actionBarDrawerToggle.syncState();
             fragmentManager.beginTransaction().replace(R.id.containerFragments, fragmentLocation).commit();
+        }
+        if (menuItem.getItemId() == R.id.exit) {
+            MainActivity.prefConfig.writeLoginStatus(false);
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
 
@@ -214,3 +224,11 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
 
 }
 
+//compile fileTree(dir: 'libs', include: ['*.jar'])
+//    testCompile 'junit:junit:4.12'
+//    compile 'com.android.support:appcompat-v7:23.1.1'
+//    compile 'com.android.support:design:23.1.1'
+//    compile 'com.google.code.gson:gson:2.6.1'
+//    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+//    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+//    compile 'com.squareup.okhttp3:okhttp:3.1.2'
