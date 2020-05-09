@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.samoylov.gameproject.Data;
+import com.samoylov.gameproject.Hero;
 import com.samoylov.gameproject.Kostyl;
 import com.samoylov.gameproject.Mob;
 import com.samoylov.gameproject.Test2;
@@ -44,6 +45,7 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
     private Button add1, add2, add3;
     private ArrayList<Kostyl> kostyls;
 
+    private Hero hero;
 
 
 // Нужен поток для переодического запроса////////////
@@ -62,13 +64,12 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the la yout for this fragment
         View v = inflater.inflate(R.layout.fragment_location, container, false);
         listView = (ExpandableListView) v.findViewById(R.id.expanded_menu);
         add1 = v.findViewById(R.id.add1);
@@ -79,12 +80,11 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
 
         lName = (TextView) v.findViewById(R.id.lName);
         lDescription = (TextView) v.findViewById(R.id.lDescription);
-
         location = Data.bdLocations.get(Data.bdHeros.get(0).getLocationId());
-        //запрос данных локации на которой нахдиться герой(id/название)////////////////////////////////////////////////////////////////////
+        //запрос данных локации на которой находиться герой(id/название)////////////////////////////////////////////////////////////////////
         // обработка полученной лкации////////////
         setOnClick();
-        startLoc();//отоброжение локации
+        startLoc();//отображение локации
 
         return v;
     }
@@ -105,8 +105,6 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
             case "Замкадье":
                 //запрос данных локации на которой нахдиться герой(id/название)/////////////////////////////////
                 // обработка полученной лкации//////////////////////////////////////////////////////////////////
-
-
                 location = Data.bdLocations.get(1);
                 Data.bdHeros.get(0).setLocation(location.getLocName());
                 location.addPlayersOnLocationList(location.getLocName());
@@ -169,6 +167,7 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
         adapter.setOnCardClickListener(this);
         listView.setAdapter(adapter);
 
+
     }
 
     public void add1(View view) {
@@ -179,19 +178,21 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
         add1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Mob Volk=new Mob("Мусорок",1,5,25,"Москва");
+                Mob Volk = new Mob("Мусорок",25,5,1,5, 20,
+                        1, "Москва", 25, 15, 10);
                 Data.bdMob.add(Volk);
                 location.addMobList(location.getLocName());
                 location.addOnLocation();
-//                adapter.notifyDataSetChanged()
-                ;adapter = new ExpListAdapter(getContext(), location.getOnLocation());
-                listView.setAdapter(adapter);
+//                adapter = new ExpListAdapter(getContext(), location.getOnLocation());
+//                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
         });
         add2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Mob bomj=new Mob("Бомж",5,12,55,"Замкадье");
+                Mob bomj = new Mob("Бомж",55,12,55,1, 20,
+                        5, "Замкадье", 55, 180, 30);
                 Data.bdMob.add(bomj);
                 location.addMobList(location.getLocName());
                 location.addOnLocation();
@@ -201,7 +202,8 @@ public class  FragmentLocation extends Fragment implements ExpListAdapter.OnCard
         add3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Mob zaMKAD=new Mob("Замкадышь",2,8,40,"Москва");
+                Mob zaMKAD = new Mob("Замкадышь",2,8,40,50, 1,
+                        7, "Москва", 2, 3, 500);
                 Data.bdMob.add(zaMKAD);
                 location.addMobList(location.getLocName());
                 location.addOnLocation();

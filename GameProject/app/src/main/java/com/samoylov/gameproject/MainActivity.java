@@ -15,6 +15,9 @@ import com.samoylov.gameproject.authorization.PrefConfig;
 import com.samoylov.gameproject.authorization.RegistrationFragment;
 import com.samoylov.gameproject.locations.Location;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity implements LoginFragment.OnLoginFromActivityListener {
     EditText name;
     Button create;
@@ -51,12 +54,12 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
         Data.bdLocations.add(location1);
         Data.bdLocations.add(location2);
 
-        Hero hero = new Hero(string, 10);
-        Hero hero2 = new Hero("Настя", 10);
+        final Hero hero = new Hero(string,20, 0, 0, 0, 0, 1, "Замкадье", 20, 0);
+        Hero hero2=new Hero("Настя",10, 0, 0, 0, 0, 1, "Замкадье", 10, 0);
         hero2.setLocation("Замкадье");
-        Hero hero3 = new Hero("Kirill", 10);
+        Hero hero3=new Hero("Kirill",20, 0, 0, 0, 0, 1, "Замкадье", 20, 0);
         hero3.setLocation("Замкадье");
-        Hero hero4 = new Hero("Sasha", 10);
+        Hero hero4=new Hero("Sasha",10, 0, 0, 0, 0, 1, "Москва", 10, 0);
         hero4.setLocation("Москва");
 
 
@@ -82,6 +85,14 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 //
 //
         startActivity(intent);
+        new Timer().schedule(
+                new TimerTask() {
+                    public void run() {
+                        if (hero.getHp_now() <= hero.getHp()) {
+                            hero.setHp_now(hero.getHp_now() + 1);
+                        }
+                    }
+                }, 1000, 1000);
         finish();
     }
 

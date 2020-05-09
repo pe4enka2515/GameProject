@@ -19,6 +19,8 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
     private ArrayList<Kostyl> kostyls=new ArrayList<>();
     private ArrayList<Hero> h;
     private int k;
+    private Hero hero;
+
     public BattleAdapter (Kostyl kostyl){
         this.kostyls.add(kostyl);
         if (kostyl instanceof Hero){
@@ -44,8 +46,8 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder1 viewHolder, int i) {
-       viewHolder.name.setText(kostyls.get(i).getName());
-       viewHolder.hp.setText(Double.toString(kostyls.get(i).getHp()));
+        viewHolder.name.setText(kostyls.get(i).getName());
+        viewHolder.hp_now.setText(Double.toString(kostyls.get(i).getHp_now()));
     }
 
     @Override
@@ -54,15 +56,15 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
     }
 
     public  class ViewHolder1 extends RecyclerView.ViewHolder {
-        TextView name,hp;
+        TextView name, hp_now;
         public ViewHolder1(@NonNull View itemView,int k) {
             super(itemView);
             if (k==0){
                 name=itemView.findViewById(R.id.nHero);
-                hp=itemView.findViewById(R.id.hpHero);
-            }else {
+                hp_now=itemView.findViewById(R.id.hpHero);
+            }else if (k==1){
                 name=itemView.findViewById(R.id.nEnemy);
-                hp=itemView.findViewById(R.id.hpEnemy);
+                hp_now=itemView.findViewById(R.id.hpEnemy);
             }
         }
     }

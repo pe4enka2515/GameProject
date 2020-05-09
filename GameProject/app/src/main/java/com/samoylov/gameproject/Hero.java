@@ -4,35 +4,46 @@ import java.util.ArrayList;
 
 public class Hero extends Kostyl {
     HeroStat heroStat;
-   private String name;
+    private String name;
+    private String location = "Москва";
 
     private double Lvl = 1;
     private double point = 10;
     private double EXP = 0;
 
     private double Str = 1;
-    private double hp = 20;
+    private double Agi = 1;
+    private double Int = 1;
+    private double Luc = 1;
+
+    private double hp;
     private double Dmg = 5;
     private double Hr = 0.4;
 
-    private double Agi = 1;
     private double Ddg = 1;
     private double Acc = 0.6;
     private double CritPower = 1.1;
 
-    private double Int = 1;
     private double SkillsPower = 1;
     private double Mp = 10;
     private double Mr = 0.2;
 
-    private double Luc = 1;
     private double CritChance = 10;
     private double DropChance;
     private double SkillChance = 60;
 
-    public Hero(String name,double hp) {
-        super(name,hp);
+    private double hp_now = hp;
+    private double Armor;
+
+    public Hero(String name,double hp_now, double Str, double Agi, double Int, double Luc,
+                double Lvl, String location, double hp, double Armor) {
+        super(name,hp_now, Str, Agi, Int, Luc, Armor);
         this.name = name;
+        this.hp_now = hp_now;
+        this.Lvl = Lvl;
+        this.location = location;
+        this.hp = hp;
+        this.Armor = Armor;
 
         addStat(heroStats);
         addStat(newHeroStats);
@@ -58,7 +69,7 @@ public class Hero extends Kostyl {
         this.heroStats = heroStats;
     }
 
-    private void addStat(ArrayList<HeroStat> heroStats1) {
+    void addStat(ArrayList<HeroStat> heroStats1) {
         heroStats1.add(new HeroStat("Сила", Str));
         heroStats1.add(new HeroStat("Ловкость", Agi));
         heroStats1.add(new HeroStat("Интелект", Int));
@@ -79,7 +90,6 @@ public class Hero extends Kostyl {
         this.location = location;
     }
 
-    private String location = "Москва";
     private int locationId;
 
     public int getLocationId() {
@@ -95,12 +105,12 @@ public class Hero extends Kostyl {
     //Инвентарь
     private ArrayList<Equipment> inventory = new ArrayList<>();
 
-    //Добавить предмет в инвенарь(в начало инвенторя)
+    //Добавить предмет в инвенарь(в начало инвентаря)
     public void addItemOnInventory(Equipment item) {
         this.inventory.add(0, item);
     }
 
-    //Удалить предмет из инвенторя
+    //Удалить предмет из инвентаря
     public void removeItemOnInventory(Equipment item) {
         this.inventory.remove(item);
     }
@@ -108,7 +118,7 @@ public class Hero extends Kostyl {
     //Надетая экипировка
     private ArrayList<Equipment> onEquip = new ArrayList<>();
 
-    //одеть придмет
+    //надеть придмет
     public void onEquip(Equipment item) {
         this.onEquip.add(0, item);
         setEquipStat(item);
@@ -147,26 +157,34 @@ public class Hero extends Kostyl {
         return point;
     }
 
-    public void setPoint(double point) {
-        this.point = point;
-    }
-
-
-    public void setEXP(double EXP) {
-        this.EXP = EXP;
+    public void setPoint(double Point) {
+        point = Point;
     }
 
     public double getEXP() {
         return EXP;
     }
 
+    public void setEXP(double eXp) {
+        EXP = eXp;
+    }
+
+    public void UpLvl() {
+        while (30*Math.pow(4, (Lvl-1)) <= EXP) {
+            if (30*Math.pow(4, (Lvl-1)) <= EXP) {
+                EXP = EXP - 30*Math.pow(4, (Lvl-1));
+                Lvl++;
+                setPoint(point + Math.floor(Math.log(Lvl) + 1));
+            }
+        }
+    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        name = Name;
     }
 
 
@@ -187,102 +205,85 @@ public class Hero extends Kostyl {
     }
 
     public double getHp() {
-        return hp;
+        return Math.floor((1 + Lvl/10) * (20 + Str + (Str/10 * 4)));
     }
 
-    public void setHp(double hp) {
-        this.hp = hp;
+    public void setHp(double Hp) { hp = Hp; }
+
+
+    public double getHp_now() {
+        return hp_now;
     }
+
+    public void setHp_now(double Hp_now) { hp_now = Hp_now; }
 
     public double getDmg() {
-        return Dmg;
+        if (Math.random() * 100 <= getAcc()) {//попадание
+            if (Math.random() * 100 <= getCritChance()) //Шанс крита
+                return Math.floor(((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2)) * getCritPower());//Крит прошел, расчет урона с крита
+            else
+                return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));//крит не прошел, расчет урон без крита
+        } else return 0;
     }
 
-    public void setDmg(double dmg) {
-        Dmg = dmg;
-    }
+    public void setDmg(double dmg) { Dmg = dmg; }
 
+    //    public double getHr() {
+//        return Math.floor(0.4 + Str/15 + Lvl/10);
+//    }
     public double getHr() {
-        return Hr;
+        return 1;
     }
 
-    public void setHr(double hr) {
-        Hr = hr;
-    }
+    public void setHr(double hr) { Hr = hr; }
 
     public double getAgi() {
         return Agi;
     }
 
-    public void setAgi(double agi) {
-        Agi = agi;
-    }
+    public void setAgi(double agi) { Agi = agi; }
 
     public double getDdg() {
-        return Ddg;
+        return Math.floor((20 * Agi *Agi) / (Agi * Agi + 30 * Agi) / 100);
     }
 
-    public void setDdg(double ddg) {
-        Ddg = ddg;
-    }
+    public void setDdg(double ddg) { Ddg = ddg; }
 
     public double getAcc() {
-        return Acc;
+        return (50 + (40 * Agi * Agi) / (Agi * Agi + 40 * Agi) / 10);//50% - базовая меткость
     }
 
-    public void setAcc(double acc) {
-        Acc = acc;
-    }
+    public void setAcc(double acc) { Acc = acc; }
 
     public double getCritPower() {
-        return CritPower;
+        return (1.5 + (190 * Agi * Agi) / (Agi * Agi + 100 * Agi)/100);//110% - базовый крит у всех (пока 150%, для тестов)
     }
 
-    public void setCritPower(double critPower) {
-        CritPower = critPower;
-    }
+    public void setCritPower(double critPower) { CritPower = critPower; }
 
     public double getInt() {
         return Int;
     }
 
-    public void setInt(double anInt) {
-        Int = anInt;
-    }
+    public void setInt(double anInt) { Int = anInt; }
 
     public double getSkillsPower() {
-        return SkillsPower;
+        return Math.floor((1 + Lvl/10) * (Int/2));
     }
 
-    public void setSkillsPower(double skillsPower) {
-        SkillsPower = skillsPower;
-    }
+    public void setSkillsPower(double skillsPower) { SkillsPower = skillsPower; }
 
     public double getMp() {
-        return Mp;
+        return Math.floor((1 + Lvl/10) * (10 + Int*2 + (Lvl/10*20)));
     }
 
-    public void setMp(double mp) {
-        Mp = mp;
-    }
+    public void setMp(double mp) { Mp = mp; }
 
     public double getMr() {
-        return Mr;
+        return Math.floor((1 + Lvl/10) * (0.2 + Int*0.03 + Lvl*0.05));
     }
 
-    public ArrayList<Equipment> getOnEquip() {
-        return onEquip;
-    }
-
-
-    public ArrayList<Equipment> getInventory() {
-        return inventory;
-    }
-
-
-    public void setMr(double mr) {
-        Mr = mr;
-    }
+    public void setMr(double mr) { Mr = mr; }
 
     public double getLuc() {
         return Luc;
@@ -292,29 +293,72 @@ public class Hero extends Kostyl {
         Luc = luc;
     }
 
+
     public double getCritChance() {
-        return CritChance;
+        return (50 + (90 * Luc * Luc) / (Luc * Luc + 35 * Luc) / 10); //10% - базовый шанс крита (пока 50%, для тестов)
     }
 
-    public void setCritChance(double critChance) {
-        CritChance = critChance;
-    }
+    public void setCritChance(double critChance) { CritChance = critChance; }
 
     public double getDropChance() {
         return DropChance;
     }
 
-    public void setDropChance(double dropChance) {
-        DropChance = dropChance;
-    }
+    public void setDropChance(double dropChance) { DropChance = dropChance; }
 
     public double getSkillChance() {
-        return SkillChance;
+        return (60 + (40 * Luc * Luc) / (Luc * Luc + 35 * Luc) / 100);
     }
 
-    public void setSkillChance(double skillChance) {
-        SkillChance = skillChance;
+    public void setSkillChance(double skillChance) { SkillChance = skillChance; }
 
+    public double getArmor() {
+        return ((100 * Armor * Armor) / (Armor * Armor + 80 * Armor));//броня хранится в числах, возвращается в %
     }
 
+    public void setArmor() { Armor = Armor; }
+
+    ////////////////////
+    public ArrayList<Equipment> getOnEquip() {
+        return onEquip;
+    }
+
+
+    public ArrayList<Equipment> getInventory() {
+        return inventory;
+    }
+    /////////////////
+    public double getAtribut(int num) {
+        switch (num) {
+            case 0:
+                return Str;
+            case 1:
+                return Agi;
+            case 2:
+                return Int;
+            case 3:
+                return Luc;
+            default:
+                return Str;
+        }
+    }
+    public void setAtribut(int num, double atribut) {
+        switch (num) {
+            case 0:
+                Str = atribut;
+                break;
+            case 1:
+                Agi = atribut;
+                break;
+            case 2:
+                Int = atribut;
+                break;
+            case 3:
+                Luc = atribut;
+                break;
+            default:
+                Str = 1000;
+                break;
+        }
+    }
 }

@@ -55,16 +55,27 @@ public class BattleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //атака/////////////////////////////////////////////////////////////////////////////////////////////
-                //получаю домаг игрока и монсра
-                //если домаг не -1 тогда бой продолжается инача
+                //получаю дамаг игрока и монстра
+                //если дамаг не -1 тогда бой продолжается иначе
                 //конец боя//
-                //звапрос результат////////////////////////////////////////////////////////////////////////////////////
-                enemy.setHp(enemy.getHp() - hero.getDmg());
-                enemyBattleAdapter.notifyDataSetChanged();
-                if (enemy.getHp() <= 0) {
+                //запрос результат////////////////////////////////////////////////////////////////////////////////////
+                enemy.setHp_now(enemy.getHp_now() - hero.getDmg());//тут можно передать параметры моба для вычисления дамага!!!!!!!
+                if (enemy.getHp_now() <= 0) {
                     Data.bdMob.remove(enemy);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerFragments,new FragmentLocation()).commit();
+                    hero.setEXP(hero.getEXP() + enemy.getEXP());
+                    getActivity().getSupportFragmentManager().beginTransaction().
+                            replace(R.id.containerFragments,new FragmentLocation()).commit();
                 }
+                enemyBattleAdapter.notifyDataSetChanged();
+                hero.setHp_now(hero.getHp_now() - enemy.getDmg());
+                heroBattleAdapter.notifyDataSetChanged();
+                if (hero.getHp_now() <= 0) {
+                    //enemy.getLvl() (Сделать увелечение лвла)
+                    getActivity().getSupportFragmentManager().beginTransaction().
+                            replace(R.id.containerFragments,new FragmentLocation()).commit();
+                }
+                heroBattleAdapter.notifyDataSetChanged();
+                hero.UpLvl();
             }
         });
         heroList.setLayoutManager(manager);
