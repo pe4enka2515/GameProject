@@ -33,8 +33,8 @@ public class Location {
 //        if (l instanceof Location.MobList) {
 //            b= ((MobList) l).getMobList().size();
 //        }
-//        if (l instanceof Location.NameList) {
-//            b= ((NameList) l).getName().size();
+//        if (l instanceof Location.GroupList) {
+//            b= ((GroupList) l).getName().size();
 //        }
 //        return b;
 //
@@ -154,7 +154,7 @@ public class Location {
 //        }
 //    }
 //
-//    public class NameList extends Location {
+//    public class GroupList extends Location {
 //        private ArrayList<String> name = new ArrayList<String>();
 //
 //        public void addName(String name) {

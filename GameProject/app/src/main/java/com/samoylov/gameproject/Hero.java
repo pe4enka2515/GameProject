@@ -216,14 +216,10 @@ public class Hero extends Kostyl {
     }
 
     public void setHp_now(double Hp_now) { hp_now = Hp_now; }
-
+//Поменял 10.05
     public double getDmg() {
-        if (Math.random() * 100 <= getAcc()) {//попадание
-            if (Math.random() * 100 <= getCritChance()) //Шанс крита
-                return Math.floor(((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2)) * getCritPower());//Крит прошел, расчет урона с крита
-            else
-                return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));//крит не прошел, расчет урон без крита
-        } else return 0;
+        return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));//расчет урон без крита
+
     }
 
     public void setDmg(double dmg) { Dmg = dmg; }

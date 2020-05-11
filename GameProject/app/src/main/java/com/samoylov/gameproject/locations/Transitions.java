@@ -2,12 +2,14 @@ package com.samoylov.gameproject.locations;
 
 import java.util.ArrayList;
 
-public class Transitions implements LocationList {
+public class Transitions implements RowType {
 
-    private ArrayList<String> transition = new ArrayList<>();
-
-    public void addTransition(String name) {
-        transition.add(name);
+    private String locationName;
+    public Transitions(String locationName){
+        this.locationName=locationName;
     }
 
+    public String getLocationName() {
+        return locationName;
+    }
 }

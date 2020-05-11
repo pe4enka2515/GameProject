@@ -1,0 +1,13 @@
+11.05.2020
+Изенения:
+    LoginFragment
+    RegistrationFragment
+
+    ExpListAdapter
+
+    Hero
+    Mob
+    BattleFragment(Реализовано лого боя нужно изменить боевку)
+Добавлено:
+    xml expanded_items
+    xml battle_logo_item

@@ -37,6 +37,8 @@ public class BagAdapter extends RecyclerView.Adapter<BagAdapter.ViewHolder> {
         mItemClick = click;
     }
 
+    
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

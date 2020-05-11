@@ -57,16 +57,14 @@ public class RegistrationFragment extends Fragment {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.body() == null) {
-                    MainActivity.prefConfig.displayToast("Offline Version...");
-                } else if (response.body().getResponse().equals("ok")) {
+                if (response.code() == 200) {
                     MainActivity.prefConfig.displayToast("Registration success...");
-                } else if (response.body().getResponse().equals("exist")) {
+                } else if (response.code() == 302) {
                     MainActivity.prefConfig.displayToast("User already exist...");
-                } else if (response.body().getResponse().equals("error")) {
-                    MainActivity.prefConfig.displayToast("Something went...");
-                } else {
-                    MainActivity.prefConfig.displayToast("Something went...");
+                } else if (response.code() == 406) {
+                    MainActivity.prefConfig.displayToast("Registration failed: incorrect login/password content...");
+                } else  if (response.code() == 500){
+                    MainActivity.prefConfig.displayToast("Server Error");
                 }
             }
 

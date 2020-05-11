@@ -83,17 +83,21 @@ public class LoginFragment extends Fragment {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.body() == null) {
-
+                if (response.code() == 200) {
+                    MainActivity.prefConfig.writeLoginStatus(true);
+                    loginFromActivityListener.performLogin(response.body().getName());
+                } else if (response.code() == 406) {
+                    MainActivity.prefConfig.displayToast("Login Failed: incorrect login/password content...");
+                }else if(response.code() == 500){
+                    MainActivity.prefConfig.displayToast("Server Error");
                     MainActivity.prefConfig.writeLoginStatus(true);
                     MainActivity.prefConfig.displayToast("Offline Version...");
                     loginFromActivityListener.performLogin(username);
-                } else if (response.body().getResponse().equals("ok")) {
-                    MainActivity.prefConfig.writeLoginStatus(true);
-                    loginFromActivityListener.performLogin(response.body().getName());
-                } else if (response.body().getResponse().equals("failed")) {
-                    MainActivity.prefConfig.displayToast("Login Failed...");
-                }
+                }else if(response.code() == 401)
+                    MainActivity.prefConfig.displayToast("Login failed: incorrect password...");
+                else if(response.code() == 423)
+                    MainActivity.prefConfig.displayToast("You'v been baned, sorry.");
+
             }
 
             @Override

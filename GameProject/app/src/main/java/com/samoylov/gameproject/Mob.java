@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Mob extends Kostyl {
     //Класс который описывает моба, с которым игрок может сражаться
     private String name;
-    private int id=Data.bdMob.size();
+    private int id = Data.bdMob.size();
     private double Str, Agi, Int, Luc, Lvl, hp, hp_now, EXP, Armor;
     private String location;
 
@@ -69,7 +69,9 @@ public class Mob extends Kostyl {
         return hp_now;
     }
 
-    public void setHp_now(double Hp_now) { hp_now = Hp_now; }
+    public void setHp_now(double Hp_now) {
+        hp_now = Hp_now;
+    }
 
     public String getLocation() {
         return location;
@@ -79,15 +81,13 @@ public class Mob extends Kostyl {
         return ((100 * Armor * Armor) / (Armor * Armor + 80 * Armor));//броня хранится в числах, возвращается в %;
     }
 
-    public void setArmor() { Armor = Armor; }
+    public void setArmor() {
+        Armor = Armor;
+    }
 
+    //Поменял 10.05
     public double getDmg() {
-        if (Math.random() * 100 <= getAcc()) {//попадание
-            if (Math.random() * 100 <= getCritChance()) //Шанс крита
-                return Math.floor(((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2)) * getCritPower());//Крит прошел, расчет урона с крита
-            else
-                return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));//крит не прошел, расчет урон без крита
-        } else return 0;
+        return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));//крит не прошел, расчет урон без крита
     }
 
     public double getAcc() {

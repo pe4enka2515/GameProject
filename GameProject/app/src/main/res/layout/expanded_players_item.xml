@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/textPlayer"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp" />
+    <Button
+        android:id="@+id/bInfoPlayer"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/textPlayer"
+        android:background="@drawable/ic_person"
+        android:focusable="false"
+        />
+</RelativeLayout>
