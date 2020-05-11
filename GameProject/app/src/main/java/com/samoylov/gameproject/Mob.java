@@ -2,7 +2,7 @@ package com.samoylov.gameproject;
 
 import java.util.ArrayList;
 
-public class Mob extends Kostyl {
+public class Mob extends Kostyl implements Test1 {
     //Класс который описывает моба, с которым игрок может сражаться
     private String name;
     private int id = Data.bdMob.size();
@@ -105,5 +105,40 @@ public class Mob extends Kostyl {
 //        return (50 + (90 * Luc * Luc) / (Luc * Luc + 35 * Luc) / 10); //10% - базовый шанс крита (пока 50%, для тестов)
     }
 
+
+    @Override
+    public String getName2() {
+        return name;
+    }
+
+    @Override
+    public double getAcc2() {
+        return 80;
+    }
+
+    @Override
+    public double getCritChance2() {
+        return 50;
+    }
+
+    @Override
+    public double getCritPower2() {
+        return 1.5;
+    }
+
+    @Override
+    public double getDmg2() {
+        return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));
+    }
+
+    @Override
+    public double getHp_now2() {
+        return hp_now;
+    }
+
+    @Override
+    public void setHp_now2(double Hp_now) {
+        hp_now = Hp_now;
+    }
 }
 

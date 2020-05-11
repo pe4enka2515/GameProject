@@ -17,6 +17,7 @@ import com.samoylov.gameproject.Mob;
 import com.samoylov.gameproject.R;
 import com.samoylov.gameproject.adapters.BattleAdapter;
 import com.samoylov.gameproject.adapters.BattleLogoAdapter;
+import com.samoylov.gameproject.Test1;
 
 import java.util.ArrayList;
 
@@ -91,7 +92,8 @@ public class BattleFragment extends Fragment {
     }
 
     void battle() {
-        hod1(enemy, hero);
+//        hod1(enemy, hero);
+        hodTet(enemy,hero);
         if (enemy.getHp_now() <= 0) {
             Data.bdMob.remove(enemy);
             hero.setEXP(hero.getEXP() + enemy.getEXP());
@@ -110,8 +112,8 @@ public class BattleFragment extends Fragment {
 
         enemyBattleAdapter.notifyDataSetChanged();
 
-        hod2(hero, enemy);
-
+//        hod2(hero, enemy);
+        hodTet(hero,enemy);
         if (hero.getHp_now() <= 0) {
             //enemy.getLvl() (Сделать увелечение лвла)
             logoTexts.add(0, new LogoText("Вас поимел "+enemy.getName() +"!",""));
@@ -128,7 +130,25 @@ public class BattleFragment extends Fragment {
         heroBattleAdapter.notifyDataSetChanged();
         hero.UpLvl();
     }
-
+    public void hodTet(Test1 defending,Test1 attacking){
+        if (Math.random() * 100 <= attacking.getAcc2()) {//попадание
+            if (Math.random() * 100 <= attacking.getCritChance2()) {//Шанс крита
+                double Crit = attacking.getCritPower2();
+                double dmg = attacking.getDmg2();
+                defending.setHp_now2(defending.getHp_now2() - dmg * Crit);//Крит прошел, расчет урона с крита
+                logoTexts.add(0,new LogoText(attacking.getName2(), "Кританул и нанес " + (dmg * Crit) + " урона"));
+                battleLogoAdapter.notifyDataSetChanged();
+            } else {
+                double dmg = attacking.getDmg2();
+                defending.setHp_now2(defending.getHp_now2() - dmg);//крит не прошел, расчет урон без крита
+                logoTexts.add(0,new LogoText(attacking.getName2(), "Нанес " + dmg + " урона"));
+                battleLogoAdapter.notifyDataSetChanged();
+            }
+        } else {
+            logoTexts.add(0,new LogoText(attacking.getName2(), "Промазал"));
+            battleLogoAdapter.notifyDataSetChanged();
+        }
+    }
     public void hod1(Mob defending, Hero attacking) {
         if (Math.random() * 100 <= attacking.getAcc()) {//попадание
             if (Math.random() * 100 <= attacking.getCritChance()) {//Шанс крита

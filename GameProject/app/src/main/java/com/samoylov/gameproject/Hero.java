@@ -2,7 +2,7 @@ package com.samoylov.gameproject;
 
 import java.util.ArrayList;
 
-public class Hero extends Kostyl {
+public class Hero extends Kostyl implements Test1 {
     HeroStat heroStat;
     private String name;
     private String location = "Москва";
@@ -356,5 +356,41 @@ public class Hero extends Kostyl {
                 Str = 1000;
                 break;
         }
+    }
+
+
+    @Override
+    public String getName2() {
+        return name;
+    }
+
+    @Override
+    public double getAcc2() {
+        return (50 + (40 * Agi * Agi) / (Agi * Agi + 40 * Agi) / 10);
+    }
+
+    @Override
+    public double getCritChance2() {
+        return (50 + (90 * Luc * Luc) / (Luc * Luc + 35 * Luc) / 10);
+    }
+
+    @Override
+    public double getCritPower2() {
+        return (1.5 + (190 * Agi * Agi) / (Agi * Agi + 100 * Agi)/100);
+    }
+
+    @Override
+    public double getDmg2() {
+        return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));
+    }
+
+    @Override
+    public double getHp_now2() {
+        return hp_now;
+    }
+
+    @Override
+    public void setHp_now2(double Hp_now) {
+        hp_now = Hp_now;
     }
 }
