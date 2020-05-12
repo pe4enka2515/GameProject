@@ -1,4 +1,13 @@
-
+12.05.20(Кирилл)
+Изменения:
+    Hero
+    Mob
+    BattleFragment
+    BattleAdapter
+    World
+    MainActivity
+Добавлено:
+    Person(Interface для Mob и Hero)
 11.05.2020
 Изенения:
     Hero
