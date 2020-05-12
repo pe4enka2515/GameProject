@@ -26,6 +26,7 @@ import com.samoylov.gameproject.fragments.FragmentMyProfile;
 import com.samoylov.gameproject.fragments.FragmentProfile;
 import com.samoylov.gameproject.fragments.MyBagFragment;
 import com.samoylov.gameproject.fragments.MyProfileFragment;
+import com.samoylov.gameproject.fragments.StatusBarFragment;
 import com.samoylov.gameproject.locations.Location;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
 //
 //
 //Z
+    private StatusBarFragment statusBarFragment;
     private FragmentLocation fragmentLocation;
     private FragmentProfile fragmentProfile;
     private FragmentMyProfile fragmentMyProfile;
@@ -54,7 +56,7 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
     Toolbar toolbar;
     NavigationView navigationView;
     final boolean[] b = {true};
-    final boolean[] v = {true};
+    final boolean[] v = {true}; 
 
 
     @Override
@@ -74,14 +76,16 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
         name.setText(MainActivity.prefConfig.readName());
         setActionBarDrawerToggle();
 
-
+        statusBarFragment=new StatusBarFragment();
         fragmentLocation = new FragmentLocation();
         fragmentProfile = new FragmentProfile();
         myProfileFragment = new MyProfileFragment();
         battleFragment = new BattleFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentLocation = FragmentLocation.newInstance(fragmentManager);
-        fragmentManager.beginTransaction().replace(R.id.containerFragments, fragmentLocation).commit();
+        statusBarFragment=StatusBarFragment.newInstance(Data.bdHeros.get(0));
+        fragmentManager.beginTransaction().add(R.id.containerFragments, statusBarFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.containerFragments, fragmentLocation).commit();
 
 
     }
@@ -108,7 +112,8 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             setActionBarDrawerToggle();
 //            actionBarDrawerToggle.syncState();
-            fragmentManager.beginTransaction().replace(R.id.containerFragments, fragmentLocation).commit();
+            fragmentManager.beginTransaction().replace(R.id.containerFragments, statusBarFragment).commit();
+            fragmentManager.beginTransaction().add(R.id.containerFragments, fragmentLocation).commit();
         }
         if (menuItem.getItemId() == R.id.exit) {
             MainActivity.prefConfig.writeLoginStatus(false);

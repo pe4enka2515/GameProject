@@ -16,9 +16,9 @@ import com.samoylov.gameproject.Kostyl;
 import com.samoylov.gameproject.Mob;
 import com.samoylov.gameproject.Person;
 import com.samoylov.gameproject.R;
+import com.samoylov.gameproject.Test1;
 import com.samoylov.gameproject.adapters.BattleAdapter;
 import com.samoylov.gameproject.adapters.BattleLogoAdapter;
-import com.samoylov.gameproject.Test1;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public class BattleFragment extends Fragment {
     private Hero hero;
     private Kostyl kostyl;
     private Button attack;
-    private ArrayList<LogoText> logoTexts= new ArrayList<LogoText>();
+    private ArrayList<LogoText> logoTexts = new ArrayList<LogoText>();
 
     public BattleFragment() {
         // Required empty public constructor
@@ -67,11 +67,11 @@ public class BattleFragment extends Fragment {
         enemyList.setLayoutManager(manager2);
         logoRV.setLayoutManager(manager3);
 
-        logoTexts.add(0, new LogoText("Вы напали на "+enemy.getName() +"!",""));
+        logoTexts.add(0, new LogoText("Вы напали на " + enemy.getName() + "!", ""));
 
         heroBattleAdapter = new BattleAdapter(hero);
         enemyBattleAdapter = new BattleAdapter(enemy);
-        battleLogoAdapter=new BattleLogoAdapter(logoTexts);
+        battleLogoAdapter = new BattleLogoAdapter(logoTexts);
         heroList.setAdapter(heroBattleAdapter);
         enemyList.setAdapter(enemyBattleAdapter);
 
@@ -92,15 +92,14 @@ public class BattleFragment extends Fragment {
         return view;
     }
 
-    void battle() {
-//        hod1(enemy, hero);
-        hodTet(enemy,hero);
+    private void battle() {
+        hod(enemy, hero);
         if (enemy.getHp_now() <= 0) {
             Data.bdMob.remove(enemy);
             hero.setEXP(hero.getEXP() + enemy.getEXP());
 
-            logoTexts.add(0, new LogoText("Получено: " ,"Опыта: "+ enemy.getEXP()));
-            logoTexts.add(0, new LogoText("Вы победили "+enemy.getName() +"!",""));
+            logoTexts.add(0, new LogoText("Получено: ", "Опыта: " + enemy.getEXP()));
+            logoTexts.add(0, new LogoText("Вы победили " + enemy.getName() + "!", ""));
             battleLogoAdapter.notifyDataSetChanged();
             attack.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,15 +108,15 @@ public class BattleFragment extends Fragment {
                             replace(R.id.containerFragments, new FragmentLocation()).commit();
                 }
             });
+
+        }else {
+            enemyBattleAdapter.notifyDataSetChanged();
+            hod(hero, enemy);
         }
 
-        enemyBattleAdapter.notifyDataSetChanged();
-
-//        hod2(hero, enemy);
-        hodTet(hero,enemy);
         if (hero.getHp_now() <= 0) {
             //enemy.getLvl() (Сделать увелечение лвла)
-            logoTexts.add(0, new LogoText("Вас поимел "+enemy.getName() +"!",""));
+            logoTexts.add(0, new LogoText("Вас поимел " + enemy.getName() + "!", ""));
             battleLogoAdapter.notifyDataSetChanged();
             attack.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,64 +130,26 @@ public class BattleFragment extends Fragment {
         heroBattleAdapter.notifyDataSetChanged();
         hero.UpLvl();
     }
-    public void hodTet(Person defending, Person attacking){
+
+    private void hod(Person defending, Person attacking) {
         if (Math.random() * 100 <= attacking.getAcc()) {//попадание
             if (Math.random() * 100 <= attacking.getCritChance()) {//Шанс крита
                 double Crit = attacking.getCritPower();
                 double dmg = attacking.getDmg();
                 defending.setHp_now(defending.getHp_now() - dmg * Crit);//Крит прошел, расчет урона с крита
-                logoTexts.add(0,new LogoText(attacking.getName(), "Кританул и нанес " + (dmg * Crit) + " урона"));
+                logoTexts.add(0, new LogoText(attacking.getName(), "Кританул и нанес " + (dmg * Crit) + " урона"));
                 battleLogoAdapter.notifyDataSetChanged();
             } else {
                 double dmg = attacking.getDmg();
                 defending.setHp_now(defending.getHp_now() - dmg);//крит не прошел, расчет урон без крита
-                logoTexts.add(0,new LogoText(attacking.getName(), "Нанес " + dmg + " урона"));
+                logoTexts.add(0, new LogoText(attacking.getName(), "Нанес " + dmg + " урона"));
                 battleLogoAdapter.notifyDataSetChanged();
             }
         } else {
-            logoTexts.add(0,new LogoText(attacking.getName(), "Промазал"));
+            logoTexts.add(0, new LogoText(attacking.getName(), "Промазал"));
             battleLogoAdapter.notifyDataSetChanged();
         }
     }
-//    public void hod1(Mob defending, Hero attacking) {
-//        if (Math.random() * 100 <= attacking.getAcc()) {//попадание
-//            if (Math.random() * 100 <= attacking.getCritChance()) {//Шанс крита
-//                double Crit = attacking.getCritPower();
-//                double dmg = attacking.getDmg();
-//                defending.setHp_now(defending.getHp_now() - dmg * Crit);//Крит прошел, расчет урона с крита
-//                logoTexts.add(0,new LogoText(attacking.getName(), "Кританул и нанес " + (dmg * Crit) + " урона"));
-//                battleLogoAdapter.notifyDataSetChanged();
-//            } else {
-//                double dmg = attacking.getDmg();
-//                defending.setHp_now(defending.getHp_now() - dmg);//крит не прошел, расчет урон без крита
-//                logoTexts.add(0,new LogoText(attacking.getName(), "Нанес " + dmg + " урона"));
-//                battleLogoAdapter.notifyDataSetChanged();
-//            }
-//        } else {
-//            logoTexts.add(0,new LogoText(attacking.getName(), "Промазал"));
-//            battleLogoAdapter.notifyDataSetChanged();
-//        }
-//    }
-//
-//    public void hod2(Hero defending, Mob attacking) {
-//        if (Math.random() * 100 <= attacking.getAcc()) {//попадание
-//            if (Math.random() * 100 <= attacking.getCritChance()) {//Шанс крита
-//                double Crit = attacking.getCritPower();
-//                double dmg = attacking.getDmg();
-//                defending.setHp_now(defending.getHp_now() - dmg * Crit);//Крит прошел, расчет урона с крита
-//                logoTexts.add(0,new LogoText(attacking.getName(), "Кританул и нанес " + (dmg * Crit) + " урона"));
-//                battleLogoAdapter.notifyDataSetChanged();
-//            } else {
-//                double dmg = attacking.getDmg();
-//                defending.setHp_now(defending.getHp_now() - dmg);//крит не прошел, расчет урон без крита
-//                logoTexts.add(0,new LogoText(attacking.getName(), "Нанес " + dmg + " урона"));
-//                battleLogoAdapter.notifyDataSetChanged();
-//            }
-//        } else {
-//            logoTexts.add(0,new LogoText(attacking.getName(), "Промазал"));
-//            battleLogoAdapter.notifyDataSetChanged();
-//        }
-//    }
 
     public static class LogoText {
         private String nLogo, tLogo;

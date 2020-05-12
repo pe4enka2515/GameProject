@@ -268,7 +268,8 @@ public class Hero extends Kostyl implements Person {
 
     @Override
     public double getAcc() {
-        return (50 + (40 * Agi * Agi) / (Agi * Agi + 40 * Agi) / 10);//50% - базовая меткость
+        return 100;
+//        return (50 + (40 * Agi * Agi) / (Agi * Agi + 40 * Agi) / 10);//50% - базовая меткость
     }
 
     @Override

@@ -11,24 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.samoylov.gameproject.Hero;
 import com.samoylov.gameproject.Kostyl;
 import com.samoylov.gameproject.Mob;
+import com.samoylov.gameproject.Person;
 import com.samoylov.gameproject.R;
 
 import java.util.ArrayList;
 
 public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder1> {
-    private ArrayList<Kostyl> kostyls=new ArrayList<>();
-    private ArrayList<Hero> h;
-    private int k;
-    private Hero hero;
-
-    public BattleAdapter (Kostyl kostyl){
-        this.kostyls.add(kostyl);
-        if (kostyl instanceof Hero){
-            k=0;
+    private Person person;
+    int k;
+    public BattleAdapter (Person person){
+        this.person = person;
+        if (person instanceof Hero){
+            this.k=0;
         }else {
-            k=1;
+            this.k=1;
         }
-
     }
     @NonNull
     @Override
@@ -46,13 +43,13 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder1 viewHolder, int i) {
-        viewHolder.name.setText(kostyls.get(i).getName());
-        viewHolder.hp_now.setText(Double.toString(kostyls.get(i).getHp_now()));
+        viewHolder.name.setText(person.getName());
+        viewHolder.hp_now.setText(""+ person.getHp_now());
     }
 
     @Override
     public int getItemCount() {
-        return kostyls.size();
+        return 1;
     }
 
     public  class ViewHolder1 extends RecyclerView.ViewHolder {
