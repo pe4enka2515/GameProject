@@ -1,0 +1,48 @@
+package com.samoylov.gameproject;
+
+public interface Person {
+    double getEXP();
+    void setEXP(double EXP);
+    String getName();
+    void setName(String name);
+    double getLvl();
+    void setLvl(double Lvl);
+    double getStr();
+    void setStr(double Str);
+    double getHp();
+    void setHp(double hp);
+    double getHp_now();
+    void setHp_now(double hp_now);
+    double getDmg();
+    void setDmg(double Dmg);
+    double getHr();
+    void setHr(double Hr);
+    double getAgi();
+    void setAgi(double Agi);
+    double getDdg();
+    void setDdg(double Ddg);
+    double getAcc();
+    void setAcc(double Acc);
+    double getCritPower();
+    void setCritPower(double CritPower);
+    double getInt();
+    void setInt(double Int);
+    double getSkillsPower();
+    void setSkillsPower(double SkillsPower);
+    double getMp();
+    void setMp(double Mp);
+    double getMr();
+    void setMr(double Mr);
+    double getLuc();
+    void setLuc(double Luc);
+    double getCritChance();
+    void setCritChance(double CritChance);
+    double getDropChance();
+    void setDropChance(double DropChance);
+    double getSkillChance();
+    void setSkillChance(double SkillChance);
+    double getArmor();
+    void setArmor(double Armor);
+    double getAtribut(int num);
+    void setAtribut(int num, double atribut);
+}
