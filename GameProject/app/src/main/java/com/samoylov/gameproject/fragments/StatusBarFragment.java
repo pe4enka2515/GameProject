@@ -54,29 +54,4 @@ public class StatusBarFragment extends Fragment {
     public void potok() {
         sHp.setText("Hp " + hero.getHp_now() + "/" + hero.getHp());
     }
-//    public void potok() {
-//        Thread thread_regen = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    for( ; ; ) {
-//                        Thread.sleep(1000);
-//                        sHp.setText("Hp " + hero.getHp_now() + "/" + hero.getHp());
-//                    }
-//                } catch (Exception e) { }
-//            }
-//        });
-//        thread_regen.start();
-//}
-//        Thread thread_regen = new Thread(new Runnable() {
-//            public void run() {
-//                try {
-//                    while (true) {
-//                        Thread.sleep(100);
-//                        sHp.setText("Hp " + hero.getHp_now() + "/" + hero.getHp());
-//                    }
-//                } catch (Exception e) {
-//                }
-//            }
-//        }).start();
 }

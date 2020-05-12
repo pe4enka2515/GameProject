@@ -99,6 +99,8 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
         battleFragment = new BattleFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentLocation = FragmentLocation.newInstance(fragmentManager);
+        fragmentManager.beginTransaction().add(R.id.containerFragments, statusBarFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.containerFragments, fragmentLocation).commit();
         statusBarFragment=StatusBarFragment.newInstance(Data.bdHeros.get(0));
         Thread thread_regen = new Thread() {
             @Override
@@ -117,10 +119,6 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
             }
         };
         thread_regen.start();
-        fragmentManager.beginTransaction().add(R.id.containerFragments, statusBarFragment).commit();
-        fragmentManager.beginTransaction().add(R.id.containerFragments, fragmentLocation).commit();
-
-
     }
 
     @Override
