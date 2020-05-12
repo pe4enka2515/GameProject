@@ -32,7 +32,7 @@ public class Hero extends Kostyl implements Test1 {
     private double DropChance;
     private double SkillChance = 60;
 
-    private double hp_now = hp;
+    private double hp_now ;
     private double Armor;
 
     public Hero(String name,double hp_now, double Str, double Agi, double Int, double Luc,
