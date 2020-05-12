@@ -1,5 +1,10 @@
 12.05.20(Кирилл)
 Изменения:
+    StatusBarFragment
+    World
+    BattleFragment
+12.05.20(Кирилл)
+Изменения:
     Hero
     Mob
     BattleFragment
