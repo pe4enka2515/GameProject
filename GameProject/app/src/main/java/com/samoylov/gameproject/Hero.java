@@ -2,7 +2,7 @@ package com.samoylov.gameproject;
 
 import java.util.ArrayList;
 
-public class Hero extends Kostyl implements Test1 {
+public class Hero extends Kostyl implements Person {
     HeroStat heroStat;
     private String name;
     private String location = "Москва";
@@ -32,8 +32,9 @@ public class Hero extends Kostyl implements Test1 {
     private double DropChance;
     private double SkillChance = 60;
 
-    private double hp_now = hp;
+    private double hp_now;
     private double Armor;
+    private int num;
 
     public Hero(String name,double hp_now, double Str, double Agi, double Int, double Luc,
                 double Lvl, String location, double hp, double Armor) {
@@ -161,12 +162,14 @@ public class Hero extends Kostyl implements Test1 {
         point = Point;
     }
 
+    @Override
     public double getEXP() {
         return EXP;
     }
 
-    public void setEXP(double eXp) {
-        EXP = eXp;
+    @Override
+    public void setEXP(double EXP) {
+        this.EXP = EXP;
     }
 
     public void UpLvl() {
@@ -179,140 +182,180 @@ public class Hero extends Kostyl implements Test1 {
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
-    public void setName(String Name) {
-        name = Name;
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 
 
+    @Override
     public double getLvl() {
         return Lvl;
     }
 
-    public void setLvl(double lvl) {
-        Lvl = lvl;
+    @Override
+    public void setLvl(double Lvl) {
+        this.Lvl = Lvl;
     }
 
+    @Override
     public double getStr() {
         return Str;
     }
 
-    public void setStr(double str) {
-        Str = str;
+    @Override
+    public void setStr(double Str) {
+        this.Str = Str;
     }
 
+    @Override
     public double getHp() {
         return Math.floor((1 + Lvl/10) * (20 + Str + (Str/10 * 4)));
     }
 
-    public void setHp(double Hp) { hp = Hp; }
+    @Override
+    public void setHp(double hp) { this.hp = hp; }
 
 
+    @Override
     public double getHp_now() {
         return hp_now;
     }
 
-    public void setHp_now(double Hp_now) { hp_now = Hp_now; }
+    @Override
+    public void setHp_now(double hp_now) { this.hp_now = hp_now; }
 //Поменял 10.05
+    @Override
     public double getDmg() {
         return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));//расчет урон без крита
 
     }
 
-    public void setDmg(double dmg) { Dmg = dmg; }
+    @Override
+    public void setDmg(double Dmg) { this.Dmg = Dmg; }
 
     //    public double getHr() {
 //        return Math.floor(0.4 + Str/15 + Lvl/10);
 //    }
+    @Override
     public double getHr() {
         return 1;
     }
 
-    public void setHr(double hr) { Hr = hr; }
+    @Override
+    public void setHr(double Hr) { this.Hr = Hr; }
 
+    @Override
     public double getAgi() {
         return Agi;
     }
 
-    public void setAgi(double agi) { Agi = agi; }
+    @Override
+    public void setAgi(double Agi) { this.Agi = Agi; }
 
+    @Override
     public double getDdg() {
         return Math.floor((20 * Agi *Agi) / (Agi * Agi + 30 * Agi) / 100);
     }
 
-    public void setDdg(double ddg) { Ddg = ddg; }
+    @Override
+    public void setDdg(double Ddg) { this.Ddg = Ddg; }
 
+    @Override
     public double getAcc() {
         return (50 + (40 * Agi * Agi) / (Agi * Agi + 40 * Agi) / 10);//50% - базовая меткость
     }
 
-    public void setAcc(double acc) { Acc = acc; }
+    @Override
+    public void setAcc(double Acc) { this.Acc = Acc; }
 
+    @Override
     public double getCritPower() {
         return (1.5 + (190 * Agi * Agi) / (Agi * Agi + 100 * Agi)/100);//110% - базовый крит у всех (пока 150%, для тестов)
     }
 
-    public void setCritPower(double critPower) { CritPower = critPower; }
+    @Override
+    public void setCritPower(double CritPower) { this.CritPower = CritPower; }
 
+    @Override
     public double getInt() {
         return Int;
     }
 
-    public void setInt(double anInt) { Int = anInt; }
+    @Override
+    public void setInt(double Int) { this.Int = Int; }
 
+    @Override
     public double getSkillsPower() {
         return Math.floor((1 + Lvl/10) * (Int/2));
     }
 
-    public void setSkillsPower(double skillsPower) { SkillsPower = skillsPower; }
+    @Override
+    public void setSkillsPower(double SkillsPower) { this.SkillsPower = SkillsPower; }
 
+    @Override
     public double getMp() {
         return Math.floor((1 + Lvl/10) * (10 + Int*2 + (Lvl/10*20)));
     }
 
-    public void setMp(double mp) { Mp = mp; }
+    @Override
+    public void setMp(double Mp) { this.Mp = Mp; }
 
+    @Override
     public double getMr() {
         return Math.floor((1 + Lvl/10) * (0.2 + Int*0.03 + Lvl*0.05));
     }
 
-    public void setMr(double mr) { Mr = mr; }
+    @Override
+    public void setMr(double Mr) { this.Mr = Mr; }
 
+    @Override
     public double getLuc() {
         return Luc;
     }
 
-    public void setLuc(double luc) {
-        Luc = luc;
+    @Override
+    public void setLuc(double Luc) {
+        this.Luc = Luc;
     }
 
 
+    @Override
     public double getCritChance() {
         return (50 + (90 * Luc * Luc) / (Luc * Luc + 35 * Luc) / 10); //10% - базовый шанс крита (пока 50%, для тестов)
     }
 
-    public void setCritChance(double critChance) { CritChance = critChance; }
+    @Override
+    public void setCritChance(double CritChance) { this.CritChance = CritChance; }
 
+    @Override
     public double getDropChance() {
         return DropChance;
     }
 
-    public void setDropChance(double dropChance) { DropChance = dropChance; }
+    @Override
+    public void setDropChance(double DropChance) { this.DropChance = DropChance; }
 
+    @Override
     public double getSkillChance() {
         return (60 + (40 * Luc * Luc) / (Luc * Luc + 35 * Luc) / 100);
     }
 
-    public void setSkillChance(double skillChance) { SkillChance = skillChance; }
+    @Override
+    public void setSkillChance(double SkillChance) { this.SkillChance = SkillChance; }
 
+    @Override
     public double getArmor() {
         return ((100 * Armor * Armor) / (Armor * Armor + 80 * Armor));//броня хранится в числах, возвращается в %
     }
 
-    public void setArmor() { Armor = Armor; }
+    @Override
+    public void setArmor(double Armor) { this.Armor = Armor; }
 
     ////////////////////
     public ArrayList<Equipment> getOnEquip() {
@@ -324,6 +367,7 @@ public class Hero extends Kostyl implements Test1 {
         return inventory;
     }
     /////////////////
+    @Override
     public double getAtribut(int num) {
         switch (num) {
             case 0:
@@ -339,6 +383,7 @@ public class Hero extends Kostyl implements Test1 {
         }
     }
     public void setAtribut(int num, double atribut) {
+        this.num = num;
         switch (num) {
             case 0:
                 Str = atribut;
@@ -359,38 +404,38 @@ public class Hero extends Kostyl implements Test1 {
     }
 
 
-    @Override
-    public String getName2() {
-        return name;
-    }
-
-    @Override
-    public double getAcc2() {
-        return (50 + (40 * Agi * Agi) / (Agi * Agi + 40 * Agi) / 10);
-    }
-
-    @Override
-    public double getCritChance2() {
-        return (50 + (90 * Luc * Luc) / (Luc * Luc + 35 * Luc) / 10);
-    }
-
-    @Override
-    public double getCritPower2() {
-        return (1.5 + (190 * Agi * Agi) / (Agi * Agi + 100 * Agi)/100);
-    }
-
-    @Override
-    public double getDmg2() {
-        return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));
-    }
-
-    @Override
-    public double getHp_now2() {
-        return hp_now;
-    }
-
-    @Override
-    public void setHp_now2(double Hp_now) {
-        hp_now = Hp_now;
-    }
+//    @Override
+//    public String getName2() {
+//        return name;
+//    }
+//
+//    @Override
+//    public double getAcc2() {
+//        return (50 + (40 * Agi * Agi) / (Agi * Agi + 40 * Agi) / 10);
+//    }
+//
+//    @Override
+//    public double getCritChance2() {
+//        return (50 + (90 * Luc * Luc) / (Luc * Luc + 35 * Luc) / 10);
+//    }
+//
+//    @Override
+//    public double getCritPower2() {
+//        return (1.5 + (190 * Agi * Agi) / (Agi * Agi + 100 * Agi)/100);
+//    }
+//
+//    @Override
+//    public double getDmg2() {
+//        return Math.floor((1 + Lvl / 10) * (5 + (Str / 4) + (Str / 10) * 2));
+//    }
+//
+//    @Override
+//    public double getHp_now2() {
+//        return hp_now;
+//    }
+//
+//    @Override
+//    public void setHp_now2(double Hp_now) {
+//        hp_now = Hp_now;
+//    }
 }
