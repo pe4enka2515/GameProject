@@ -85,14 +85,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.OnL
 //
 //
         startActivity(intent);
-        new Timer().schedule(
-                new TimerTask() {
-                    public void run() {
-                        if (hero.getHp_now() <= hero.getHp()) {
-                            hero.setHp_now(hero.getHp_now() + 1);
-                        }
-                    }
-                }, 1000, 1000);
         finish();
     }
 

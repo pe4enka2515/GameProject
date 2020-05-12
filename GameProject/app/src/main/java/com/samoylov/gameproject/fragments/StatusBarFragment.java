@@ -9,9 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.samoylov.gameproject.Data;
 import com.samoylov.gameproject.Hero;
 import com.samoylov.gameproject.Mob;
 import com.samoylov.gameproject.R;
+import com.samoylov.gameproject.World;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import java.lang.Thread;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,10 +26,12 @@ import com.samoylov.gameproject.R;
 public class StatusBarFragment extends Fragment {
 
     private Hero hero;
-    TextView sLvl,sHp,sXpe;
+    TextView sLvl, sHp, sXpe;
+
     public StatusBarFragment() {
         // Required empty public constructor
     }
+
     public static StatusBarFragment newInstance(Hero hero) {
         StatusBarFragment fragment = new StatusBarFragment();
         fragment.hero = hero;
@@ -33,13 +42,41 @@ public class StatusBarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_status_bar, container, false);
-        sLvl=view.findViewById(R.id.sLvl);
-        sHp=view.findViewById(R.id.sHp);
-        sXpe=view.findViewById(R.id.sExp);
+        View view = inflater.inflate(R.layout.fragment_status_bar, container, false);
+        sLvl = view.findViewById(R.id.sLvl);
+        sHp = view.findViewById(R.id.sHp);
+        sXpe = view.findViewById(R.id.sExp);
         sLvl.setText("Lvl " + hero.getLvl());
-        sHp.setText("Hp " +hero.getHp_now()+"/"+hero.getHp());
-        sXpe.setText("Exp "+ hero.getEXP()+"/"+"???");
+        sHp.setText("Hp " + hero.getHp_now() + "/" + hero.getHp());
+        sXpe.setText("Exp " + hero.getEXP() + "/" + "???");
         return view;
     }
+    public void potok() {
+        sHp.setText("Hp " + hero.getHp_now() + "/" + hero.getHp());
+    }
+//    public void potok() {
+//        Thread thread_regen = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    for( ; ; ) {
+//                        Thread.sleep(1000);
+//                        sHp.setText("Hp " + hero.getHp_now() + "/" + hero.getHp());
+//                    }
+//                } catch (Exception e) { }
+//            }
+//        });
+//        thread_regen.start();
+//}
+//        Thread thread_regen = new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    while (true) {
+//                        Thread.sleep(100);
+//                        sHp.setText("Hp " + hero.getHp_now() + "/" + hero.getHp());
+//                    }
+//                } catch (Exception e) {
+//                }
+//            }
+//        }).start();
 }

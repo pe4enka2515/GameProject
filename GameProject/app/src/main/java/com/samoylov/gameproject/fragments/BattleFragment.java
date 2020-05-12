@@ -21,6 +21,8 @@ import com.samoylov.gameproject.adapters.BattleAdapter;
 import com.samoylov.gameproject.adapters.BattleLogoAdapter;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +40,18 @@ public class BattleFragment extends Fragment {
     private Button attack;
     private ArrayList<LogoText> logoTexts = new ArrayList<LogoText>();
 
+    public Timer timer_regen = new Timer();
+    public TimerTask task_regen = new TimerTask() {
+        @Override
+        public void run() {
+            if (Data.bdHeros.get(0).getHp_now() <= Data.bdHeros.get(0).getHp()) {
+                Data.bdHeros.get(0).setHp_now(Data.bdHeros.get(0).getHp_now() + 1);
+            }
+        }
+    };
+    private long regen_delay = 1000L;
+    private long regen_period = 1000L;
+
     public BattleFragment() {
         // Required empty public constructor
     }
@@ -52,6 +66,7 @@ public class BattleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_battle, container, false);
         manager = new LinearLayoutManager(getActivity());
         manager2 = new LinearLayoutManager(getActivity());
@@ -108,7 +123,7 @@ public class BattleFragment extends Fragment {
                             replace(R.id.containerFragments, new FragmentLocation()).commit();
                 }
             });
-
+            timer_regen.schedule(task_regen, regen_delay, regen_period);
         }else {
             enemyBattleAdapter.notifyDataSetChanged();
             hod(hero, enemy);
@@ -125,8 +140,8 @@ public class BattleFragment extends Fragment {
                             replace(R.id.containerFragments, new FragmentLocation()).commit();
                 }
             });
+            timer_regen.schedule(task_regen, regen_delay, regen_period);
         }
-
         heroBattleAdapter.notifyDataSetChanged();
         hero.UpLvl();
     }
