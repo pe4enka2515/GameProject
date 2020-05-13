@@ -48,7 +48,7 @@ public class StatusBarFragment extends Fragment {
         sXpe = view.findViewById(R.id.sExp);
         sLvl.setText("Lvl " + hero.getLvl());
         sHp.setText("Hp " + hero.getHp_now() + "/" + hero.getHp());
-        sXpe.setText("Exp " + hero.getEXP() + "/" + "???");
+        sXpe.setText("Exp " + hero.getEXP() + "/" + hero.getEXP_for_Lvl());
         return view;
     }
     public void potok() {

@@ -63,22 +63,24 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
     final boolean[] b = {true};
     final boolean[] v = {true};
 
-        public Timer timer_regen = new Timer();
-        public TimerTask task_regen = new TimerTask() {
-            @Override
-            public void run() {
-                if (Data.bdHeros.get(0).getHp_now() <= Data.bdHeros.get(0).getHp()) {
-                    Data.bdHeros.get(0).setHp_now(Data.bdHeros.get(0).getHp_now() + 1);
-                }
-            }
-        };
+//        public Timer timer_regen = new Timer();
+//        public TimerTask task_regen = new TimerTask() {
+//            @Override
+//            public void run() {
+//                if (Data.bdHeros.get(0).getHp_now() + Data.bdHeros.get(0).getHr() >= Data.bdHeros.get(0).getHp()) {
+//                    Data.bdHeros.get(0).setHp_now(Data.bdHeros.get(0).getHp());
+//                } else if (Data.bdHeros.get(0).getHp_now() + Data.bdHeros.get(0).getHr() < Data.bdHeros.get(0).getHp()) {
+//                    Data.bdHeros.get(0).setHp_now(Data.bdHeros.get(0).getHp_now() + Data.bdHeros.get(0).getHr());
+//                }
+//            }
+//        };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_world);
 
-        timer_regen.schedule(task_regen, regen_delay, regen_period);
+//        timer_regen.schedule(task_regen, regen_delay, regen_period);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,10 +101,8 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
         battleFragment = new BattleFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentLocation = FragmentLocation.newInstance(fragmentManager);
-        fragmentManager.beginTransaction().add(R.id.containerFragments, statusBarFragment).commit();
-        fragmentManager.beginTransaction().add(R.id.containerFragments, fragmentLocation).commit();
         statusBarFragment=StatusBarFragment.newInstance(Data.bdHeros.get(0));
-        Thread thread_regen = new Thread() {
+        Thread thread_regen_vision = new Thread() {
             @Override
             public void run() {
                 try {
@@ -118,7 +118,30 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
                 } catch (InterruptedException e) { }
             }
         };
+        thread_regen_vision.start();
+        Thread thread_regen = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (Data.bdHeros.get(0).getHp_now() + Data.bdHeros.get(0).getHr() >= Data.bdHeros.get(0).getHp()) {
+                                    Data.bdHeros.get(0).setHp_now(Data.bdHeros.get(0).getHp());
+                                } else if (Data.bdHeros.get(0).getHp_now() + Data.bdHeros.get(0).getHr() < Data.bdHeros.get(0).getHp()) {
+                                    Data.bdHeros.get(0).setHp_now(Data.bdHeros.get(0).getHp_now() + Data.bdHeros.get(0).getHr());
+                                }
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) { }
+            }
+        };
         thread_regen.start();
+        fragmentManager.beginTransaction().add(R.id.containerFragments, statusBarFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.containerFragments, fragmentLocation).commit();
     }
 
     @Override
@@ -183,7 +206,6 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
                 fragmentManager.beginTransaction().replace(R.id.containerFragments, fragmentProfile).addToBackStack(null).commit();
                 break;
             case "Mob":
-                timer_regen.cancel();
                 battleFragment = new BattleFragment();
                 battleFragment = BattleFragment.newInstance(Data.bdHeros.get(0), Data.bdMob.get(0));
                 fragmentManager.beginTransaction().replace(R.id.containerFragments, battleFragment).commit();
@@ -198,9 +220,9 @@ public class World extends AppCompatActivity implements NavigationView.OnNavigat
     public void onBattle(int id) {
         // Запрос с айди монстром////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // получил/обработал/записал//////////////////////////////////////////////////////////////////////////////////////////////////////////
-        timer_regen.cancel();
         for (int i = 0; i < Data.bdMob.size(); i++) {
             if (Data.bdMob.get(i).getId() == id) {
+//                timer_regen_vis.cancel();
                 battleFragment = new BattleFragment();
                 battleFragment = BattleFragment.newInstance(Data.bdHeros.get(0), Data.bdMob.get(i));
                 fragmentManager.beginTransaction().replace(R.id.containerFragments, battleFragment).commit();

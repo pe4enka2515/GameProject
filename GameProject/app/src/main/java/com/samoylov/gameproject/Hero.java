@@ -172,10 +172,13 @@ public class Hero extends Kostyl implements Person {
         this.EXP = EXP;
     }
 
+    public double getEXP_for_Lvl() {
+        return Math.floor(30*Math.pow(4, (Lvl-1)));
+    }
+
     public void UpLvl() {
         while (30*Math.pow(4, (Lvl-1)) <= EXP) {
             if (30*Math.pow(4, (Lvl-1)) <= EXP) {
-                EXP = EXP - 30*Math.pow(4, (Lvl-1));
                 Lvl++;
                 setPoint(point + Math.floor(Math.log(Lvl) + 1));
             }
@@ -223,9 +226,7 @@ public class Hero extends Kostyl implements Person {
 
 
     @Override
-    public double getHp_now() {
-        return hp_now;
-    }
+    public double getHp_now() { return Math.floor(hp_now); }
 
     @Override
     public void setHp_now(double hp_now) { this.hp_now = hp_now; }

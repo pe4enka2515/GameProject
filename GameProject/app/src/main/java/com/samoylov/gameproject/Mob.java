@@ -92,7 +92,7 @@ public class Mob extends Kostyl implements Person {
 
     @Override
     public double getHp_now() {
-        return hp_now;
+        return Math.floor(hp_now);
     }
 
     @Override

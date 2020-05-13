@@ -123,7 +123,7 @@ public class BattleFragment extends Fragment {
                             replace(R.id.containerFragments, new FragmentLocation()).commit();
                 }
             });
-            timer_regen.schedule(task_regen, regen_delay, regen_period);
+//            timer_regen.scheduleAtFixedRate(task_regen, regen_delay, regen_period);
         }else {
             enemyBattleAdapter.notifyDataSetChanged();
             hod(hero, enemy);
@@ -140,7 +140,7 @@ public class BattleFragment extends Fragment {
                             replace(R.id.containerFragments, new FragmentLocation()).commit();
                 }
             });
-            timer_regen.schedule(task_regen, regen_delay, regen_period);
+//            timer_regen.scheduleAtFixedRate(task_regen, regen_delay, regen_period);
         }
         heroBattleAdapter.notifyDataSetChanged();
         hero.UpLvl();
